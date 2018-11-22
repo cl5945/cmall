@@ -257,6 +257,21 @@
 
 
   <build>
+    <resources>
+      <resource>
+        <!--src/main/resources的子文件夹作为资源文件-->
+        <directory>src/main/resources/${deploy.type}</directory>
+        <excludes>
+          <exclude>*.jsp</exclude>
+        </excludes>
+      </resource>
+
+      <resource>
+        <!--src/main/resources 存放公共资源-->
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+
     <finalName>mmall</finalName>
     <plugins>
       <plugin>
@@ -286,5 +301,30 @@
 
   </build>
 
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <activation>
+        <!--默认环境-->
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <!--deploy.type  自定义的变量名称-->
+        <deploy.type>dev</deploy.type>
+      </properties>
+    </profile>
+    <profile>
+      <id>beta</id>
+      <properties>
+        <deploy.type>beta</deploy.type>
+      </properties>
+    </profile>
+    <profile>
+      <id>prod</id>
+      <properties>
+        <deploy.type>prod</deploy.type>
+      </properties>
+    </profile>
+  </profiles>
 
 </project>
