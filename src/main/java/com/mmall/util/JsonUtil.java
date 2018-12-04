@@ -17,6 +17,8 @@ import java.util.List;
 
 /**
  * Created by changlei on 2018/11/22.
+ *
+ * 对Jackson 的封装，操作json的jsonUtil
  */
 @Slf4j
 public class JsonUtil {

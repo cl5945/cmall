@@ -65,7 +65,6 @@ public class RedisPool {
         Jedis jedis = pool.getResource();
         jedis.set("cl", "cl");
         returnResource(jedis);
-
     }
 
 }
