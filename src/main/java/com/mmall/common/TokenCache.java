@@ -4,8 +4,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +11,7 @@ import java.util.concurrent.TimeUnit;
  * Created by geely
  */
 @Slf4j
+@Deprecated // 第二版已经不使用了，被redis 替代了，之所以没有删掉，是留着学习
 public class TokenCache {
 
 
