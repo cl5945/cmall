@@ -23,15 +23,27 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <!--二期新增重置时间的filter start-->
-    <filter>
+    <!--<filter>
         <filter-name>sessionExpireFilter</filter-name>
         <filter-class>com.mmall.controller.common.SessionExpireFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>sessionExpireFilter</filter-name>
         <url-pattern>*.do</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
     <!--二期新增重置时间的filter  end-->
+
+
+    <!--二期spring session 框架session start-->
+    <filter>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    <!--二期spring session 框架session end-->
 
     <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
