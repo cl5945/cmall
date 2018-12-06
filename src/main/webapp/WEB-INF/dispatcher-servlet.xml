@@ -42,5 +42,23 @@
         <property name="defaultEncoding" value="UTF-8"></property>
     </bean>
 
+    <mvc:interceptors>
+        <!--bean 定义在Intercepters 中的，所有的都会拦截-->
+        <!--
+        /** 所有路径及子路经
+        /*  当前路径下的所有路径，不含子文件夹
+        /   web项目的根目录请求
+        manage/a.do             /manage/*
+        manage/b.do                 /manage/*
+        manage/product/save.do      /manage/**
+        manage/order/detail.do      /manage/**    -->
+        <mvc:interceptor>
+            <mvc:mapping path="/manage/**"/>
+            <!--排除一些url，如解决拦截登陆问题，还可以在代码中作排除-->
+            <!--<mvc:exclude-mapping path="/manage/user/login.do"/>-->
+            <bean class="com.mmall.common.interceptor.AuthorityInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 
 </beans>
