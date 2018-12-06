@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class CookieUtil {
 
-    private final static String COOKIE_DOMAIN = "cl.com" ;
+    private final static String COOKIE_DOMAIN = "localhost" ;
 
     private final static String COOKIE_NAME = "mmall_login_token";
 // a,b,c,d,e(都是二级域名) 都可以共享 x的cookie ;

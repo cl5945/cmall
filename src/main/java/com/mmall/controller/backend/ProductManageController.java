@@ -45,7 +45,7 @@ public class ProductManageController {
     @RequestMapping("save.do")
     @ResponseBody
     public ServerResponse productSave(HttpServletRequest request, Product product) {
-        String loginToken = CookieUtil.readLoginToken(request);
+        /*String loginToken = CookieUtil.readLoginToken(request);
         if (org.springframework.util.StringUtils.isEmpty(loginToken)) {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         } else {
@@ -61,13 +61,16 @@ public class ProductManageController {
             } else {
                 return ServerResponse.createByErrorMessage("无权限操作");
             }
-        }
+        }*/
+        // 权限验证通过拦截器来实现
+        //填充我们增加产品的业务逻辑
+        return iProductService.saveOrUpdateProduct(product);
     }
 
     @RequestMapping("set_sale_status.do")
     @ResponseBody
     public ServerResponse setSaleStatus(HttpServletRequest request, Integer productId, Integer status) {
-        String loginToken = CookieUtil.readLoginToken(request);
+        /*String loginToken = CookieUtil.readLoginToken(request);
         if (org.springframework.util.StringUtils.isEmpty(loginToken)) {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         } else {
@@ -82,13 +85,17 @@ public class ProductManageController {
             } else {
                 return ServerResponse.createByErrorMessage("无权限操作");
             }
-        }
+        }*/
+
+        // 权限验证通过拦截器来实现
+        return iProductService.setSaleStatus(productId, status);
+
     }
 
     @RequestMapping("detail.do")
     @ResponseBody
     public ServerResponse getDetail(HttpServletRequest request, Integer productId) {
-        String loginToken = CookieUtil.readLoginToken(request);
+        /*String loginToken = CookieUtil.readLoginToken(request);
         if (org.springframework.util.StringUtils.isEmpty(loginToken)) {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         } else {
@@ -105,13 +112,18 @@ public class ProductManageController {
             } else {
                 return ServerResponse.createByErrorMessage("无权限操作");
             }
-        }
+        }*/
+
+        // 权限验证通过拦截器来实现
+        //填充业务
+        return iProductService.manageProductDetail(productId);
+
     }
 
     @RequestMapping("list.do")
     @ResponseBody
     public ServerResponse getList(HttpServletRequest request, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        String loginToken = CookieUtil.readLoginToken(request);
+        /*String loginToken = CookieUtil.readLoginToken(request);
         if (org.springframework.util.StringUtils.isEmpty(loginToken)) {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         } else {
@@ -127,7 +139,12 @@ public class ProductManageController {
             } else {
                 return ServerResponse.createByErrorMessage("无权限操作");
             }
-        }
+        }*/
+
+        // 权限验证通过拦截器来实现
+        //填充业务
+        return iProductService.getProductList(pageNum, pageSize);
+
     }
 
     @RequestMapping("search.do")
@@ -135,7 +152,7 @@ public class ProductManageController {
     public ServerResponse productSearch(HttpServletRequest request, String productName, Integer productId,
                                         @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                         @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        String loginToken = CookieUtil.readLoginToken(request);
+       /* String loginToken = CookieUtil.readLoginToken(request);
         if (org.springframework.util.StringUtils.isEmpty(loginToken)) {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         } else {
@@ -151,7 +168,11 @@ public class ProductManageController {
             } else {
                 return ServerResponse.createByErrorMessage("无权限操作");
             }
-        }
+        }*/
+
+        // 权限验证通过拦截器来实现
+        //填充业务
+        return iProductService.searchProduct(productName, productId, pageNum, pageSize);
     }
 
     @RequestMapping("upload.do")
@@ -159,7 +180,7 @@ public class ProductManageController {
     public ServerResponse upload(HttpSession
                                          session, @RequestParam(value = "upload_file", required = false) MultipartFile file, HttpServletRequest request) {
         String loginToken = CookieUtil.readLoginToken(request);
-        if (org.springframework.util.StringUtils.isEmpty(loginToken)) {
+       /* if (org.springframework.util.StringUtils.isEmpty(loginToken)) {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         } else {
             String userJson = RedisPoolUtil.get(loginToken);
@@ -179,7 +200,18 @@ public class ProductManageController {
             } else {
                 return ServerResponse.createByErrorMessage("无权限操作");
             }
-        }
+        }*/
+
+        // 权限验证通过拦截器来实现
+        String path = request.getSession().getServletContext().getRealPath("upload");
+        String targetFileName = iFileService.upload(file, path);
+        String url = PropertiesUtil.getProperty("ftp.server.http.prefix") + targetFileName;
+
+        Map fileMap = Maps.newHashMap();
+        fileMap.put("uri", targetFileName);
+        fileMap.put("url", url);
+        return ServerResponse.createBySuccess(fileMap);
+
     }
 
 

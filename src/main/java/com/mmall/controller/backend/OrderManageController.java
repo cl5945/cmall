@@ -38,7 +38,7 @@ public class OrderManageController {
     public ServerResponse<PageInfo> orderList(HttpServletRequest request, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 
-        String loginToken = CookieUtil.readLoginToken(request);
+       /* String loginToken = CookieUtil.readLoginToken(request);
         if (org.springframework.util.StringUtils.isEmpty(loginToken)) {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         } else {
@@ -54,14 +54,19 @@ public class OrderManageController {
             } else {
                 return ServerResponse.createByErrorMessage("无权限操作");
             }
-        }
+        }*/
+
+        // 权限验证通过拦截器来实现
+        //填充我们增加产品的业务逻辑
+        return iOrderService.manageList(pageNum, pageSize);
+
     }
 
     @RequestMapping("detail.do")
     @ResponseBody
     public ServerResponse<OrderVo> orderDetail(HttpServletRequest request, Long orderNo) {
 
-        String loginToken = CookieUtil.readLoginToken(request);
+       /* String loginToken = CookieUtil.readLoginToken(request);
         if (org.springframework.util.StringUtils.isEmpty(loginToken)) {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         } else {
@@ -73,12 +78,15 @@ public class OrderManageController {
             }
             if (iUserService.checkAdminRole(user).isSuccess()) {
                 //填充我们增加产品的业务逻辑
-
                 return iOrderService.manageDetail(orderNo);
             } else {
                 return ServerResponse.createByErrorMessage("无权限操作");
             }
-        }
+        }*/
+
+        // 权限验证通过拦截器来实现
+        //填充我们增加产品的业务逻辑
+        return iOrderService.manageDetail(orderNo);
     }
 
 
@@ -86,7 +94,7 @@ public class OrderManageController {
     @ResponseBody
     public ServerResponse<PageInfo> orderSearch(HttpServletRequest request, Long orderNo, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                                 @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        String loginToken = CookieUtil.readLoginToken(request);
+        /*String loginToken = CookieUtil.readLoginToken(request);
         if (org.springframework.util.StringUtils.isEmpty(loginToken)) {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         } else {
@@ -102,7 +110,10 @@ public class OrderManageController {
             } else {
                 return ServerResponse.createByErrorMessage("无权限操作");
             }
-        }
+        }*/
+        // 权限验证通过拦截器来实现
+        //填充我们增加产品的业务逻辑
+        return iOrderService.manageSearch(orderNo, pageNum, pageSize);
     }
 
 
@@ -110,7 +121,7 @@ public class OrderManageController {
     @ResponseBody
     public ServerResponse<String> orderSendGoods(HttpServletRequest request, Long orderNo) {
 
-        String loginToken = CookieUtil.readLoginToken(request);
+        /*String loginToken = CookieUtil.readLoginToken(request);
         if (org.springframework.util.StringUtils.isEmpty(loginToken)) {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         } else {
@@ -126,6 +137,9 @@ public class OrderManageController {
             } else {
                 return ServerResponse.createByErrorMessage("无权限操作");
             }
-        }
+        }*/
+        // 权限验证通过拦截器来实现
+        //填充我们增加产品的业务逻辑
+        return iOrderService.manageSendGoods(orderNo);
     }
 }
