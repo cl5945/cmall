@@ -29,4 +29,10 @@ public interface OrderMapper {
 
 
     List<Order> selectAllOrder();
+
+//     二期定时关单的任务
+    List<Order> selectOrderStatusByCreateTime(@Param("status") Integer status,@Param("date")String date);
+
+    int closeOrderByOrderId(int id);
+
 }
