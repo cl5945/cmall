@@ -56,6 +56,27 @@ public class RedisShardedPoolUtil {
     }
 
     /**
+     * 分布式锁，
+     * @param key
+     * @param value
+     * @return
+     */
+    public static Long setNx(String key , String value){
+        Long result = null;
+        ShardedJedis jedis = null;
+        try {
+            jedis = RedisShardedPool.getJedis();
+            result = jedis.setnx(key, value);
+        } catch (Exception e) {
+            log.error("setnx key:{}  value:{} error",key,value,e);
+            RedisShardedPool.returnBrokenResource(jedis);
+            return result;
+        }
+        RedisShardedPool.returnResource(jedis);
+        return result;
+    }
+
+    /**
      * setEx
      * @param key
      * @param exTime
